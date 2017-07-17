@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by User on 04.07.2017.
  */
-@WebServlet(name = "com.app.AdminServlet", urlPatterns = "/admin")
+@WebServlet(name = "com.app.AdminServlet", urlPatterns = {"/adminmm"})//, "*.do"})
 public class AdminServlet extends HttpServlet {
 
     @Override

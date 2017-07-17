@@ -6,39 +6,90 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <display-name>Archetype Created Web Application</display-name>
+    <!--<display-name>Archetype Created Web Application</display-name> -->
 
+    <context-param>
+        <param-name>ProductName</param-name>
+        <param-value>Servlet context product name</param-value>
+    </context-param>
 
-    <servlet-mapping>
-        <servlet-name>BServlet</servlet-name>
-        <url-pattern>/B</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>BServlet</servlet-name>
         <servlet-class>com.app.BServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>BServlet</servlet-name>
+        <url-pattern>/B</url-pattern>
+    </servlet-mapping>
 
 
-    <security-constraint>
-        <display-name>Constraint1</display-name>
-        <web-resource-collection>
-            <web-resource-name>admin</web-resource-name>
-            <url-pattern>/admin</url-pattern>
+
+    <!-- Сервлет можно описать аннотацией (@WebServlet), а можно здесь.
+    И здесь же задать начальные параметры сервлета так же как и в аннотации @WebInitParam-->
+
+        <servlet>
+            <servlet-name>Servletlala</servlet-name>
+            <servlet-class>com.app.Servlet</servlet-class>
+        <init-param>
+            <param-name>ProductName</param-name>
+            <param-value>Yet another Application</param-value>
+        </init-param>
+        </servlet>
+    <servlet-mapping>
+        <servlet-name>Servletlala</servlet-name>
+        <!--<url-pattern>/dd</url-pattern>-->
+     <url-pattern>/pluralsight</url-pattern>
+ </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>ControllerServlet</servlet-name>
+        <servlet-class>com.app.ControllerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+<!-- говорю о том, что в случае ошибки (когда в сервлете throw Exception) надо выводить то, что в файле errorpage.jsp -->
+    <error-page>
+        <location>/WEB-INF/errorpage.jsp</location>
+    </error-page>
+    
+    
+    
+    
+    
+
+ <!-- Описываем, на какие страницы в браузере можно заходить только определенным ролям (administrator, user).
+  Пароли к ним прописаны в D:\JavaGoIT\GoJava EE\program for web\apache-tomcat-9.0.0.M22\conf\tomcat-users
+  Роли должны быть описаны в <security-role>-->
+        <security-constraint>
+            <display-name>Constraint1</display-name>
+            <web-resource-collection>
+                <web-resource-name>admin</web-resource-name>
+                <url-pattern>/adminmm</url-pattern>
+                <!--<url-pattern>/pluralsight</url-pattern>-->
+            <url-pattern>/dfg.do</url-pattern>
         </web-resource-collection>
 
         <auth-constraint>
             <description/>
-            <role-name>admin</role-name>
+            <role-name>administrator</role-name>
            <!-- <role-name>user</role-name> -->
         </auth-constraint>
     </security-constraint>
 
+    <!-- Описываем как будет выглядеть форма для ввода логина и пароля - может быть базовой (FORM)
+    или описываться в auth.html (FORM), а ошибка при не правильной аутинтификации - в error-login.html-->
     <login-config>
         <!--<auth-method>BASIC</auth-method>-->
+        <!--<auth-method>BASIC?silent=true,FORM</auth-method>-->
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/auth.html</form-login-page>
-            <form-error-page>/error-login.html</form-error-page>
+            <form-login-page>/WEB-INF/auth.html</form-login-page>
+            <form-error-page>/WEB-INF/error-login.html</form-error-page>
         </form-login-config>
        <!-- <realm-name>my-realm</realm-name>-->
     </login-config>
@@ -46,7 +97,7 @@
 
     <security-role>
         <description/>
-        <role-name>admin</role-name>
+        <role-name>administrator</role-name>
     </security-role>
 
     <security-role>
@@ -54,12 +105,35 @@
         <role-name>user</role-name>
     </security-role>
 
+
 </web-app>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Внести в D:\JavaGoIT\GoJava EE\program for web\apache-tomcat-9.0.0.M22\conf\tomcat-users
-<role rolename="admin"/>
+<role rolename="administrator"/>
 <role rolename="user"/>
 
 <user username="Maryna" password="111" roles="admin"/>
